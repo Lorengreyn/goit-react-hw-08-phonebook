@@ -2,13 +2,14 @@ import { useState } from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { Notify } from "notiflix";
-import { Form, FormLabel, Input } from "./ContactForm.styled";
-import { contactsOperations } from "../../redux/contacts";
+import css from './ContactForm.module.scss'
+import { createContacts } from "../../redux/contacts/contactsOperations";
+
 
 function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.phonebook.items.contacts);
-
+  // const contactStatus = useSelector(state => state.phonebook.items.status);
   const [form, setForm] = useState({
     name: "",
     number: "",
@@ -40,7 +41,7 @@ function ContactForm() {
     const isValidateForm = validateForm();
     if (!isValidateForm) return;
     dispatch(
-      contactsOperations.createContacts({ id: nanoid(10), name, number }),
+      createContacts({ id: nanoid(10), name, number }),
       Notify.success("Contact is add phonebook"),
     );
     const resetForm = () => setForm({ name: "", number: "" });
@@ -48,11 +49,12 @@ function ContactForm() {
   };
 
   
-  return (
-    <Form onSubmit={handleFormSubmit}>
-      <FormLabel>
-        Name
-        <Input
+  return (<>
+    <div>
+      <form className={css.form} onSubmit={handleFormSubmit}>
+        <h2 className={css.title}>Name</h2>
+      <input
+        className={css.input}
           type="text"
           name="name"
           placeholder="Enter name"
@@ -62,10 +64,10 @@ function ContactForm() {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer..."
           required
         />
-      </FormLabel>
-      <FormLabel>
-        Number
-        <Input
+      
+        <h2>Number</h2>
+      <input
+        className={css.input}
           type="tel"
           name="number"
           placeholder="Enter phone number"
@@ -75,10 +77,9 @@ function ContactForm() {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-      </FormLabel>
-      <button type="submit">Add contact</button>
-    </Form>
+      
+      <button className={css.button} type="submit">Add contact</button>
+    </form></div></>
   );
 }
 export default ContactForm;
-

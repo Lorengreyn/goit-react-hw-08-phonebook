@@ -36,17 +36,10 @@ const store = configureStore({
   reducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      // thunk: {
-      //   extraArgument: getDataContacts(),
-      // },
       serializableCheck: {
-        /* ignore persistance actions */
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(logger),
-  // devTools: process.env.NODE_ENV !== "production",
-  //   preloadedState,
-  //   enhancers: [reduxBatch],
-});
+ });
 export default store;
 export const persistor = persistStore(store);

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../../redux/user/userOperations";
+import { logout } from "../../redux/user/userOperations";
 import { getIsLoggedIn } from "../../redux/user/userSelectors";
 import { SFlexContainer } from "../Containers/Containers.styled";
 import css from './Header.module.scss'
@@ -20,8 +20,8 @@ export default function Header() {
   const dispatch = useDispatch();
   return (
     <div className={css.header}>
-      <SFlexContainer size={20}>
-        <NavLink to="/login" className={css.logo}>Phonebook</NavLink>
+      <SFlexContainer size={40}>
+        <NavLink to="/" className={css.logo}>Phonebook</NavLink>
         <div className={css.nav}>
           <ul className={css.nav_ul}>
             {isLoggedIn ? (
@@ -30,7 +30,7 @@ export default function Header() {
                   <StyledLink to="/contacts">Phonebook</StyledLink>
                 </li>
                 <li className={css.nav_item}>
-                  <StyledLink to="/login" onClick={() => dispatch(logOut())}>
+                  <StyledLink to="/login" onClick={() => dispatch(logout())}>
                     Logout
                   </StyledLink>
                 </li>
@@ -41,7 +41,7 @@ export default function Header() {
                   <StyledLink to="/login">Login</StyledLink>
                 </li>
                 <li className={css.nav_item}>
-                  <StyledLink to="/register">SingUp</StyledLink>
+                  <StyledLink to="/singup">SingUp</StyledLink>
                 </li>
               </>
             )}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { signUp } from "../../../redux/user/userOperations";
+import { signup } from "../../../redux/user/userOperations";
 import css from './FormSingUp.module.scss';
 
 function FormRegister({ title }) {
@@ -12,18 +12,17 @@ function FormRegister({ title }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(signUp({ name, email, password }));
+    dispatch(signup({ name, email, password }));
     setName("");
     setEmail("");
     setPassword("");
   };
 
-  return (
-    
+  return (    
     <form className={css.form}>
       <ul className={css.form_list}>
         <li className={css.form_item}>
-        <h3 className={css.form_title}>Login</h3>
+        <h3 className={css.form_title}>Name</h3>
         <input
         className={css.form_input}
         type="name"

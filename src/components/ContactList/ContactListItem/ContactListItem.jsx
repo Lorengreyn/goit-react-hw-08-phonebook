@@ -1,30 +1,37 @@
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Notify } from "notiflix";
-import { ButtonDelete, ContactListLi } from "./ContactListItem.styled";
-import { contactsOperations } from "../../../redux/contacts";
+import css from "./ContactListItem.module.scss";
+import {deleteContacts,  getContacts} from "../../../redux/contacts/contactsOperations";
 
 function ContactListItem({ name, number, id }) {
   const dispatch = useDispatch();
 
   return (
-    <ContactListLi>
-      {name}: {number}
-      <ButtonDelete
+    <div className={css.wrap}>
+    <ul className={css.list}>
+        <li className={css.wrap}>
+          <h3 className={css.item}>Name:</h3>
+          <p className={css.item}>{name}</p>
+          <h3 className={css.item}>Number:</h3>
+          <p className={css.item}>{number}</p>
+        </li>
+      </ul>
+      <button type="button" className={css.button}
         onClick={() =>
           dispatch(
-            contactsOperations.deleteContacts({ id }),
+            deleteContacts({ id }),
             Notify.success("Contact is delete"),
           )
             .unwrap()
             .then(() => {
-              contactsOperations.getContacts();
+              getContacts();
             })
         }
       >
         Delete
-      </ButtonDelete>
-    </ContactListLi>
+      </button>
+    </div>
   );
 }
 ContactListItem.propTypes = {

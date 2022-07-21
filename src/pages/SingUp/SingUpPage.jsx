@@ -5,13 +5,12 @@ import img from '../../img/_27_background-wallpaper-leather_128913354.jpg'
 function SingUpPage() {
   return (
     <div className={css.container}>
-      <img className={css.img} src={img} alt="bg"/>
+      <img className={css.img} src={img} alt="bg" />
       <div className={css.form}>
-      <h1 className={css.title}>SingUp</h1>
-      <FormRegister title="register" />
+        <h1 className={css.title}>SingUp</h1>
+        <FormRegister title="singup" />
       </div>
-      </div>
-   
+    </div>
   );
 }
 

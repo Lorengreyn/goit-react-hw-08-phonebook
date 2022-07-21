@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import { getIsLoggedIn } from "../redux/user/userSelectors";
+import Header from "../../components/Header/Header";
+import { getIsLoggedIn } from "../../redux/user/userSelectors";
 
 function HomePage() {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import {
   signUpUser,
 } from "../../services/contactsApiService";
 
-export const signUp = createAsyncThunk(
+export const signup = createAsyncThunk(
   "user/signup",
   async (credentials, { rejectWithValue }) => {
     try {
@@ -20,7 +20,7 @@ export const signUp = createAsyncThunk(
   },
 );
 
-export const logIn = createAsyncThunk(
+export const login = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
     try {
@@ -33,7 +33,7 @@ export const logIn = createAsyncThunk(
   },
 );
 
-export const logOut = createAsyncThunk(
+export const logout = createAsyncThunk(
   "user/logout",
   async (credentials, { rejectWithValue }) => {
     try {

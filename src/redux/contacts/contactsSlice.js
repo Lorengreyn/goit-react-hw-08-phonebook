@@ -1,53 +1,55 @@
 import { createSlice, combineReducers } from "@reduxjs/toolkit";
-import { contactsOperations } from ".";
-import { logOut } from "../user/userOperations";
+import { getContacts, createContacts, deleteContacts} from "./contactsOperations";
+import { logout } from "../user/userOperations";
 
 const contactsItemsSlice = createSlice({
   name: "items",
   initialState: {
     contacts: [],
-    status: "idle",
+    status: "",
     error: null,
   },
   extraReducers(builder) {
     builder
-      .addCase(contactsOperations.getContacts.pending, state => ({
-        ...state,
-        status: "pending",
-      }))
-      .addCase(contactsOperations.getContacts.fulfilled, (state, action) => ({
-        ...state,
-        status: "succeeded",
-        contacts: [...action.payload],
-      }))
-      .addCase(contactsOperations.getContacts.rejected, (state, action) => ({
-        ...state,
-        status: "failed",
-        error: action.error.message,
-      }))
-      .addCase(contactsOperations.createContacts.pending, state => ({
+      .addCase(getContacts.pending, state => ({
         ...state,
         status: "pending",
       }))
       .addCase(
-        contactsOperations.createContacts.fulfilled,
+        getContacts.fulfilled,
+        (state, action) => ({
+        ...state,
+        status: "succeeded",
+        contacts: [...action.payload],
+      }))
+      .addCase(getContacts.rejected, (state, action) => ({
+        ...state,
+        status: "failed",
+        error: action.error.message,
+      }))
+      .addCase(createContacts.pending, state => ({
+        ...state,
+        status: "pending",
+      }))
+      .addCase(
+        createContacts.fulfilled,
         (state, action) => ({
           ...state,
           status: "succeeded",
           contacts: [...state.contacts, action.payload],
         }),
       )
-      .addCase(contactsOperations.createContacts.rejected, (state, action) => ({
+      .addCase(createContacts.rejected, (state, action) => ({
         ...state,
         status: "failed",
         error: action.error.message,
       }))
-      .addCase(contactsOperations.deleteContacts.pending, state => ({
+      .addCase(deleteContacts.pending, state => ({
         ...state,
         status: "pending",
       }))
       .addCase(
-        contactsOperations.deleteContacts.fulfilled,
+        deleteContacts.fulfilled,
         (state, action) => ({
           ...state,
           status: "succeeded",
@@ -56,12 +58,12 @@ const contactsItemsSlice = createSlice({
           ],
         }),
       )
-      .addCase(contactsOperations.deleteContacts.rejected, (state, action) => ({
+      .addCase(deleteContacts.rejected, (state, action) => ({
         ...state,
         status: "failed",
         error: action.error.message,
       }))
-      .addCase(logOut.fulfilled, state => ({
+      .addCase(logout.fulfilled, state => ({
         ...state,
         status: "idle",
         contacts: [],
@@ -83,4 +85,5 @@ const contactsReducer = combineReducers({
   [contactsItemsSlice.name]: contactsItemsSlice.reducer,
   [contactsFilterSlice.name]: contactsFilterSlice.reducer,
 });
+
 export default contactsReducer;

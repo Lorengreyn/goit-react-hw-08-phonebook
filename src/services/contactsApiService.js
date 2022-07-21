@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 export const tokenKey = {
   set(token) {
@@ -46,15 +47,17 @@ export const refreshCurrentUser = async persistedToken => {
 
 // Contacts
 
-export const getDataContacts = async () => {
-  const { data } = await axios.get("/contacts");
+export async function getDataContacts() {
+  const { data } = await axios.get(`/contacts`);console.log(data);
   return data;
+  
 };
 
 export const getAddContacts = async newContact => {
-  const { data } = await axios.post("/contacts", newContact);
+  const { data } = await axios.post(`/contacts`, newContact);
   return data;
 };
 export const deleteContact = async contactId => {
-  await axios.delete(`/contacts/${contactId}`);
+  const { data } = await axios.delete(`/contacts/${contactId}`);
+  return data;
 };
