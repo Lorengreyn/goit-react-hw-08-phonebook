@@ -14,9 +14,6 @@ color: white;
 }
 
 `;
-const style = {
-      
-    };
 
 export default function Header() {
   const isLoggedIn = useSelector(getIsLoggedIn);

@@ -7,7 +7,7 @@ import SingUpPage from "../pages/SingUp/SingUpPage";
 import LoginPage from "../pages/Login/LoginPage";
 import { refresh } from "../redux/user/userOperations";
 import { Loader } from "../components/Loader/Loader";
-import Home from "components/Home/Home";
+// import Home from "components/Home/Home";
 
 const HomePage = lazy(() =>
   import(
