@@ -1,21 +1,26 @@
 import { useSelector } from "react-redux";
-
+import { getFilter } from 'redux/contacts/filterSlice';
 import ContactListItem from "./ContactListItem/ContactListItem";
 import { ContactListBox } from "./ContactList.styled";
+import { useMemo } from 'react';
+import { useGetContactsQuery } from '../../services/contactsApiService'
 
 function ContactList() {
-  const contacts = useSelector(state => state.phonebook.items.contacts);
-  const filterValue = useSelector(state => state.phonebook.filter);
+  const filter = useSelector(getFilter);
+  const { data: contacts = [] } = useGetContactsQuery();
 
-  const isVisibleContacts = () =>
-    contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filterValue.toLowerCase()),
-    );
-  const filterContact = isVisibleContacts();
+  const filteredContacts = useMemo(() => {
+    return contacts.filter(contact => {
+      return contact.name
+        .toLocaleLowerCase()
+        .includes(filter.toLocaleLowerCase());
+    });
+  }, [contacts, filter]);
 
+  const shownContacts = filter !== '' ? filteredContacts : contacts;
   return (
     <ContactListBox>
-      {filterContact.map(contact => (
+      {shownContacts.map(contact => (
         <ContactListItem
           name={contact.name}
           number={contact.number}
@@ -28,23 +33,3 @@ function ContactList() {
 }
 
 export default ContactList;
-
-// --------REDUX----------------
-// ContactList.propTypes = {
-//   // contacts: PropTypes.arrayOf(
-//   //   PropTypes.shape({
-//   //     id: PropTypes.string.isRequired,
-//   //   }),
-//   // ).isRequired,
-//   // onRemove: PropTypes.func.isRequired,
-// };
-
-// export default ContactList;
-// const mapStateToProps = state => ({
-//   contacts: state.contacts.items,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onRemove: id =>
-//     dispatch(handleRemoveContact(id), Notify.success("Contact is delete")),
-// });

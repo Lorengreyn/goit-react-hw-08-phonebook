@@ -33,15 +33,8 @@ function App() {
       <GlobalStyle />
         <Suspense fallback={<Loader/>}>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <PublicRoute>
-                  <HomePage />
-                </PublicRoute>
-              }
-          >
-            <Route index element={<Home />} />
+            <Route path="/" element={<HomePage />} >
+              <Route index element={<Home />} />
               <Route
                 path="contacts"
                 element={
@@ -51,7 +44,7 @@ function App() {
                 }
               />
               <Route
-                path="singup"
+                path="signup"
                 element={
                   <PublicRoute restricted redirectTo="/contacts">
                     <SingUpPage />

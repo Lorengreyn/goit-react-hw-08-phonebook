@@ -8,8 +8,8 @@ function HomePage() {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/contacts");
+    if (isLoggedIn && !isLoggedIn) {
+      navigate("/contacts") ;
     }
     navigate("/login");
     // eslint-disable-next-line react-hooks/exhaustive-deps

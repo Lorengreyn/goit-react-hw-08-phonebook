@@ -1,12 +1,17 @@
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Notify } from "notiflix";
 import css from "./ContactListItem.module.scss";
-import {deleteContacts,  getContacts} from "../../../redux/contacts/contactsOperations";
+import {useDeleteContactMutation} from "../../../services/contactsApiService";
 
-function ContactListItem({ name, number, id }) {
-  const dispatch = useDispatch();
 
+const ContactListItem = ({ name, number, id }) => {
+
+  const [ deleteContact ] = useDeleteContactMutation();
+
+  const onDeleteContact = e => {
+    deleteContact(e.target.id);
+     Notify.success("Contact is delete");
+  };
   return (
     <div className={css.wrap}>
     <ul className={css.list}>
@@ -17,17 +22,12 @@ function ContactListItem({ name, number, id }) {
           <p className={css.item}>{number}</p>
         </li>
       </ul>
-      <button type="button" className={css.button}
-        onClick={() =>
-          dispatch(
-            deleteContacts({ id }),
-            Notify.success("Contact is delete"),
-          )
-            .unwrap()
-            .then(() => {
-              getContacts();
-            })
-        }
+      <button
+        
+        type="button"
+        className={css.button}
+        onClick={onDeleteContact}
+        id={id}
       >
         Delete
       </button>

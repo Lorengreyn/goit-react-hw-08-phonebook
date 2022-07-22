@@ -1,45 +1,41 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
+import { configureStore } from '@reduxjs/toolkit';
+import { userReducer } from './user/userSlice';
+import { contactSlice } from './contacts/contactsSlice';
+import { filterSlice } from './contacts/filterSlice';
+import { contactsApi } from '../services/contactsApiService';
+
 import {
-  persistReducer,
   persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
-} from "reduxjs-toolkit-persist";
-import storage from "reduxjs-toolkit-persist/lib/storage";
-import autoMergeLevel1 from "reduxjs-toolkit-persist/lib/stateReconciler/autoMergeLevel1";
-import contactsSlice from "./contacts/contactsSlice";
-import userSlice from "./user/userSlice";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-const persistConfig = {
-  key: "tokenUser",
+const userPersistConfig = {
+  key: 'tokenUser',
   storage,
-  whitelist: ["token"],
-  stateReconciler: autoMergeLevel1,
+  whitelist: ['token', 'currentPath'],
 };
-const persistedReducer = persistReducer(persistConfig, userSlice.reducer);
 
-const reducer = combineReducers({
-  phonebook: contactsSlice,
-  user: persistedReducer,
-});
-const logger = createLogger({
-  collapsed: logEntry => !logEntry.error,
-  timestamp: false,
-});
-
-const store = configureStore({
-  reducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
+export const store = configureStore({
+  reducer: {
+    user: persistReducer(userPersistConfig, userReducer),
+    [contactsApi.reducerPath]: contactsApi.reducer,
+    [filterSlice.name]: filterSlice.reducer,
+    [contactSlice.name]: contactSlice.reducer,
+  },
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(logger),
- });
-export default store;
+    }),
+    contactsApi.middleware,
+  ],
+});
 export const persistor = persistStore(store);

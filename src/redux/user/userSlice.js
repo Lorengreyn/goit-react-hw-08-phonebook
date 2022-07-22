@@ -1,60 +1,58 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { signup, login, logout, refresh } from "./userOperations";
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  login,
+  logout,
+  refresh,
+  signup,
+} from './userOperations';
 
 const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
-  isRefreshing: false,
+  pendingUserData: false,
+  currentPath: null,
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
-  extraReducers(builder) {
-    builder
-      .addCase(signup.fulfilled, (state, action) => ({
-        ...state,
-        user: { ...action.payload.user },
-        token: action.payload.token,
-        isLoggedIn: true,
-      }))
-      .addCase(login.fulfilled, (state, action) => ({
-        ...state,
-        user: { ...action.payload.user },
-        token: action.payload.token,
-        isLoggedIn: true,
-      }))
-      .addCase(login.rejected, state => ({
-        ...state,
-        isLoggedIn: false,
-      }))
-      .addCase(signup.rejected, state => ({
-        ...state,
-        isLoggedIn: false,
-      }))
-      .addCase(logout.fulfilled, state => ({
-        ...state,
-        user: { ...initialState.user },
-        token: initialState.token,
-        isLoggedIn: initialState.isLoggedIn,
-      }))
-      .addCase(refresh.pending, state => ({
-        ...state,
-        isRefreshing: true,
-      }))
-      .addCase(refresh.fulfilled, (state, action) => ({
-        ...state,
-        user: { ...action.payload.user },
-        isRefreshing: false,
-        isLoggedIn: true,
-      }))
-      .addCase(refresh.rejected, state => ({
-        ...state,
-        isRefreshing: false,
-        isLoggedIn: false,
-      }));
+
+  reducers: {
+    setPath: (state, action) => {
+      state.currentPath = action.payload;
+    },
+  },
+  extraReducers: {
+    [signup.fulfilled]: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [login.fulfilled]: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [logout.fulfilled]: (state, _) => {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+      state.currentPath = null;
+    },
+    [refresh.pending]: (state, _) => {
+      state.pendingUserData = true;
+    },
+    [refresh.fulfilled]: (state, action) => {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+      state.pendingUserData = false;
+    },
+    [refresh.rejected]: state => {
+      state.pendingUserData = false;
+    },
   },
 });
+export const { setPath } = userSlice.actions;
 
-export default userSlice;
+export const userReducer = userSlice.reducer;

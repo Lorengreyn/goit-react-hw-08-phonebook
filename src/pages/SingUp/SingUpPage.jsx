@@ -8,7 +8,7 @@ function SingUpPage() {
       <img className={css.img} src={img} alt="bg" />
       <div className={css.form}>
         <h1 className={css.title}>SingUp</h1>
-        <FormRegister title="singup" />
+        <FormRegister title="signup" />
       </div>
     </div>
   );

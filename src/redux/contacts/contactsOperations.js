@@ -1,21 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  deleteContact,
-  getAddContacts,
-  getDataContacts,
+  useGetContactsQuery,
+  useCreateContactMutation,
+  useDeleteContactMutation,
 } from "../../services/contactsApiService";
 
 export const getContacts = createAsyncThunk(
   "contacts/getContacts",
   async () => {
-    const contacts = await getDataContacts();
+    const contacts = await useGetContactsQuery();
     return contacts;
   },
 );
 export const createContacts = createAsyncThunk(
   "contacts/createContacts",
   async contact => {
-    const contactCreate = await getAddContacts(contact);
+    const contactCreate = await useCreateContactMutation(contact);
     return contactCreate;
   },
 );
@@ -25,7 +25,7 @@ export const deleteContacts = createAsyncThunk(
   "contacts/removeContact",
   async ({ id }, { rejectWithValue }) => {
     try {
-      await deleteContact(id);
+      await useDeleteContactMutation(id);
 
       return id;
     } catch (error) {
@@ -33,3 +33,4 @@ export const deleteContacts = createAsyncThunk(
     }
   },
 );
+

@@ -1,61 +1,70 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Notify } from "notiflix";
-import {
-  logInUser,
-  logOutUser,
-  refreshCurrentUser,
-  signUpUser,
-} from "../../services/contactsApiService";
+import axios from "axios";
 
-export const signup = createAsyncThunk(
-  "user/signup",
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const response = await signUpUser(credentials);
-      return response;
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+
+
+export const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = "";
+  },
+};
+
+export const signup = createAsyncThunk('user/signup', async userData => {
+  try {
+    const { data } = await axios.post('/users/signup', userData);
+    token.set(data.token);
+    return data;
     } catch (error) {
       Notify.error("We already have a user with such email!");
-      return rejectWithValue(error.message);
+      return (error.message);
     }
   },
 );
 
-export const login = createAsyncThunk(
-  "user/login",
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const response = await logInUser(credentials);
-      return response;
+export const login = createAsyncThunk('user/login', async userData => {
+  try {
+    const { data } = await axios.post('/users/login', userData);
+    token.set(data.token);
+    return data;
     } catch (error) {
       Notify.error("Login or password were rejected!");
-      return rejectWithValue(error.message);
+      return (error.message);
     }
   },
 );
 
-export const logout = createAsyncThunk(
-  "user/logout",
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const response = await logOutUser(credentials);
-      return response;
+export const logout = createAsyncThunk('user/logout', async () => {
+  try {
+    await axios.post('/users/logout');
+    token.unset();
     } catch (error) {
-      return rejectWithValue(error);
+      return (error);
     }
   },
 );
 
 export const refresh = createAsyncThunk(
-  "user/refresh",
-  async (_, { getState, rejectWithValue }) => {
-    const state = getState();
+  'user/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
     const persistedToken = state.user.token;
 
-    if (!persistedToken) {
-      return rejectWithValue();
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
     }
 
-    const response = await refreshCurrentUser(persistedToken);
-    return response;
-  },
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.get('/users/current');
+
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 );

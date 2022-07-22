@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import css from "../ContactForm/ContactForm.module.scss";
-import { filterContact } from "../../redux/contacts/contactsSlice";
+import { filterContact } from "../../redux/contacts/filterSlice";
 
 function Filter() {
   const dispatch = useDispatch();
-  const filterValue = useSelector(state => state.phonebook.filter);
+  const filterValue = useSelector(state => state.filter);
 
   return (
       <input

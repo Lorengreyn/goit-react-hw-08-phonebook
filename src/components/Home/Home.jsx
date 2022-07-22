@@ -11,7 +11,7 @@ const Home = () => {
           <p className={css.text}>Before you get started, please sing up or log in.</p>
           <ul className={css.form_list}>
             <button type="button" className={css.button}><Link className={css.link} to="/login">Login</Link></button>
-            <button type="button" className={css.button}><Link className={css.link} to="/singup">SingUp</Link></button>
+            <button type="button" className={css.button}><Link className={css.link} to="/signup">SingUp</Link></button>
           </ul>
         </div>
         

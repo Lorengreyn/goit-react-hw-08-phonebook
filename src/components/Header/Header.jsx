@@ -21,7 +21,7 @@ export default function Header() {
   return (
     <div className={css.header}>
       <SFlexContainer size={40}>
-        <NavLink to="/" className={css.logo}>Phonebook</NavLink>
+        <StyledLink to="/" className={css.logo}>Phonebook</StyledLink>
         <div className={css.nav}>
           <ul className={css.nav_ul}>
             {isLoggedIn ? (
@@ -41,7 +41,7 @@ export default function Header() {
                   <StyledLink to="/login">Login</StyledLink>
                 </li>
                 <li className={css.nav_item}>
-                  <StyledLink to="/singup">SingUp</StyledLink>
+                  <StyledLink to="/signup">SignUp</StyledLink>
                 </li>
               </>
             )}

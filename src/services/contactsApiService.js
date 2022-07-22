@@ -1,63 +1,53 @@
-import axios from "axios";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-
-export const tokenKey = {
-  set(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = "";
-  },
-};
-
-// Authorization
-
-export const signUpUser = async body => {
-  const { data } = await axios.post("users/signup", body);
-  tokenKey.set(data.token);
-  return data;
-};
-
-export const logInUser = async body => {
-  const { data } = await axios.post("users/login", body);
-  tokenKey.set(data.token);
-  return data;
-};
-
-export const logOutUser = async () => {
-  const { data } = await axios.post("/users/logout");
-  tokenKey.unset();
-  return data;
-};
-
-export const refreshCurrentUser = async persistedToken => {
-  if (!persistedToken) {
-    throw Error("user");
-  }
-  tokenKey.set(persistedToken);
-  try {
-    const { data } = await axios.get("/users/current");
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
-
-// Contacts
-
-export async function getDataContacts() {
-  const { data } = await axios.get(`/contacts`);console.log(data);
-  return data;
+export const contactsApi = createApi({
+  reducerPath: 'contacts',
   
-};
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://connections-api.herokuapp.com',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().user.token;
 
-export const getAddContacts = async newContact => {
-  const { data } = await axios.post(`/contacts`, newContact);
-  return data;
-};
-export const deleteContact = async contactId => {
-  const { data } = await axios.delete(`/contacts/${contactId}`);
-  return data;
-};
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      } else {
+        headers.delete('authorization');
+      }
+
+      return headers;
+    },
+  }),
+
+  tagTypes: ['Contacts'],
+  endpoints: builder => ({
+    getContacts: builder.query({
+      query: () => '/contacts',
+      providesTags: ['Contacts'],
+      keepUnusedDataFor: 2,
+    }),
+    createContact: builder.mutation({
+      query: contact => ({
+        url: `/contacts`,
+        method: 'POST',
+        body: contact,
+      }),
+      invalidatesTags: ['Contacts'],
+    }),
+    deleteContact: builder.mutation({
+      query: id => ({
+        url: `/contacts/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Contacts'],
+    }),
+
+    
+  }),
+});
+
+
+export const {
+  useGetContactsQuery,
+  useCreateContactMutation,
+  useDeleteContactMutation,
+} = contactsApi;
