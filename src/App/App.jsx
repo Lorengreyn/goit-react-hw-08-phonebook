@@ -37,7 +37,7 @@ function App() {
             <PublicRoute>
               <HomePage />
             </PublicRoute>} >
-              <Route index element={<Home />} />
+              {/* <Route index element={<Home />} /> */}
               <Route
                 path="contacts"
                 element={

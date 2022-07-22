@@ -14,6 +14,9 @@ color: white;
 }
 
 `;
+const style = {
+      
+    };
 
 export default function Header() {
   const isLoggedIn = useSelector(getIsLoggedIn);
@@ -21,7 +24,8 @@ export default function Header() {
   return (
     <div className={css.header}>
       <SFlexContainer size={40}>
-        <StyledLink to="/" className={css.logo}>Phonebook</StyledLink>
+        {/* <StyledLink to="/" className={css.logo}>Phonebook</StyledLink> */}
+        <h1 style={{color: 'white', fontSize: 20 }}>Phonebook</h1>
         <div className={css.nav}>
           <ul className={css.nav_ul}>
             {isLoggedIn ? (
