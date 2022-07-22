@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/goit-react-hw-08-phonebook/static/css/main.26f401b8.css",
-    "main.js": "/goit-react-hw-08-phonebook/static/js/main.674ec4cc.js",
+    "main.js": "/goit-react-hw-08-phonebook/static/js/main.c58795ee.js",
     "Home__page.css": "/goit-react-hw-08-phonebook/static/css/Home__page.38b86a75.chunk.css",
     "Home__page.js": "/goit-react-hw-08-phonebook/static/js/Home__page.ed146856.chunk.js",
     "Public__Route.js": "/goit-react-hw-08-phonebook/static/js/Public__Route.bf230470.chunk.js",
     "Private__Route.js": "/goit-react-hw-08-phonebook/static/js/Private__Route.76b2f982.chunk.js",
-    "static/media/_27_background-wallpaper-leather_128913354.jpg": "/goit-react-hw-08-phonebook/static/media/_27_background-wallpaper-leather_128913354.908002a6c7cf90ecf127.jpg",
-    "static/media/home.jpg": "/goit-react-hw-08-phonebook/static/media/home.c431a29ec309e8b63fb9.jpg",
-    "static/media/open-book.jpg": "/goit-react-hw-08-phonebook/static/media/open-book.9eef003600c9e76baee2.jpg",
+    "static/media/_27_background-wallpaper-leather_128913354.jpg": "/goit-react-hw-08-phonebook/static/media/_27_background-wallpaper-leather_128913354.74c15742f4ca34abb58c.jpg",
+    "static/media/home.jpg": "/goit-react-hw-08-phonebook/static/media/home.1efaec96f90800b557b0.jpg",
+    "static/media/open-book.jpg": "/goit-react-hw-08-phonebook/static/media/open-book.4a7eb34bbbd44d800c49.jpg",
     "index.html": "/goit-react-hw-08-phonebook/index.html",
     "main.26f401b8.css.map": "/goit-react-hw-08-phonebook/static/css/main.26f401b8.css.map",
-    "main.674ec4cc.js.map": "/goit-react-hw-08-phonebook/static/js/main.674ec4cc.js.map",
+    "main.c58795ee.js.map": "/goit-react-hw-08-phonebook/static/js/main.c58795ee.js.map",
     "Home__page.38b86a75.chunk.css.map": "/goit-react-hw-08-phonebook/static/css/Home__page.38b86a75.chunk.css.map",
     "Home__page.ed146856.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/Home__page.ed146856.chunk.js.map",
     "Public__Route.bf230470.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/Public__Route.bf230470.chunk.js.map",
@@ -19,6 +19,6 @@
   },
   "entrypoints": [
     "static/css/main.26f401b8.css",
-    "static/js/main.674ec4cc.js"
+    "static/js/main.c58795ee.js"
   ]
 }
