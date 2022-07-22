@@ -1,6 +1,6 @@
 import FormRegister from "../../components/Form/FormSingUp/FormSingUp";
 import css from './SingUp.module.scss';
-import img from '../../img/_27_background-wallpaper-leather_128913354.jpg'
+import img from '../../img/login.jpg'
 
 function SingUpPage() {
   return (

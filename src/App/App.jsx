@@ -33,7 +33,10 @@ function App() {
       <GlobalStyle />
         <Suspense fallback={<Loader/>}>
           <Routes>
-            <Route path="/" element={<PublicRoute><HomePage /></PublicRoute>} >
+          <Route path="/" element={
+            <PublicRoute>
+              <HomePage />
+            </PublicRoute>} >
               <Route index element={<Home />} />
               <Route
                 path="contacts"

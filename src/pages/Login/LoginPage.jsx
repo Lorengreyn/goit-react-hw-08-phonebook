@@ -1,6 +1,6 @@
 import FormLogin from "../../components/Form/FormLogin/FormLogin";
 import css from './LoginPage.module.scss';
-import img from '../../img/_27_background-wallpaper-leather_128913354.jpg'
+import img from '../../img/login.jpg'
 
 function LoginPage() {
   return (
