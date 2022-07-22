@@ -10,7 +10,7 @@ import {Loader} from "./components/Loader/Loader.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/goit-react-hw-08-phonebook/">
+    <BrowserRouter basename="/goit-react-hw-08-phonebook/login">
       <Provider store={store}>
         <PersistGate
           loading={<Loader />}
