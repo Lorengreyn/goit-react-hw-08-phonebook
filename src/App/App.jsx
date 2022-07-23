@@ -1,12 +1,13 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Navigate, useNavigate, Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { lazy, Suspense, useEffect } from "react";
 import GlobalStyle from "../theme/GlobalStyle.styled";
 import PhoneBookPage from "../pages/PhoneBook/PhoneBookPage";
 import SingUpPage from "../pages/SingUp/SingUpPage";
 import LoginPage from "../pages/Login/LoginPage";
-import { refresh } from "../redux/user/userOperations";
+// import { refresh } from "../redux/user/userOperations";
 import { Loader } from "../components/Loader/Loader";
+import * as userOperations from '../redux/user/userOperations'
 // import Home from "components/Home/Home";
 
 const HomePage = lazy(() =>
@@ -24,9 +25,15 @@ const PrivateRoute = lazy(() =>
 );
 function App() {
   const dispatch = useDispatch();
+  const pendingUserData = useSelector(state => state.user.pendingUserData);
+  const currentPath = useSelector(state => state.user.currentPath);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch(refresh());
-  }, [dispatch]);
+  dispatch(userOperations.refresh());
+    currentPath && navigate(currentPath);
+  }, [currentPath, dispatch, navigate]);
+
   return (
     <>      
       <GlobalStyle />
