@@ -8,7 +8,7 @@ function HomePage() {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   useEffect(() => {
-    if (isLoggedIn && !isLoggedIn) {
+    if (isLoggedIn) {
       navigate("/contacts") ;
     }
     navigate("/login");

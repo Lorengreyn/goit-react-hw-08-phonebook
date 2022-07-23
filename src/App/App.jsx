@@ -1,13 +1,12 @@
-import { Navigate, useNavigate, Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { lazy, Suspense, useEffect } from "react";
 import GlobalStyle from "../theme/GlobalStyle.styled";
 import PhoneBookPage from "../pages/PhoneBook/PhoneBookPage";
 import SingUpPage from "../pages/SingUp/SingUpPage";
 import LoginPage from "../pages/Login/LoginPage";
-// import { refresh } from "../redux/user/userOperations";
+import { refresh } from "../redux/user/userOperations";
 import { Loader } from "../components/Loader/Loader";
-import * as userOperations from '../redux/user/userOperations'
 // import Home from "components/Home/Home";
 
 const HomePage = lazy(() =>
@@ -25,20 +24,15 @@ const PrivateRoute = lazy(() =>
 );
 function App() {
   const dispatch = useDispatch();
-  const currentPath = useSelector(state => state.user.currentPath);
-  const navigate = useNavigate();
-
   useEffect(() => {
-  dispatch(userOperations.refresh());
-    currentPath && navigate(currentPath);
-  }, [currentPath, dispatch, navigate]);
-
+    dispatch(refresh());
+  }, [dispatch]);
   return (
     <>      
       <GlobalStyle />
         <Suspense fallback={<Loader/>}>
           <Routes>
-          <Route publicPath="/" element={
+          <Route path="/" element={
             <PublicRoute>
               <HomePage />
             </PublicRoute>} >
@@ -67,7 +61,7 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/login" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Route>
           </Routes>
       </Suspense>
