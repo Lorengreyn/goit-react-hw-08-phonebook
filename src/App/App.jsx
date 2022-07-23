@@ -25,7 +25,6 @@ const PrivateRoute = lazy(() =>
 );
 function App() {
   const dispatch = useDispatch();
-  // const pendingUserData = useSelector(state => state.user.pendingUserData);
   const currentPath = useSelector(state => state.user.currentPath);
   const navigate = useNavigate();
 
@@ -68,7 +67,7 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/login" />} />
+              <Route path="*" element={<Navigate to="/index.html" />} />
             </Route>
           </Routes>
       </Suspense>
