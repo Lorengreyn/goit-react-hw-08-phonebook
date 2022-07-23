@@ -39,7 +39,7 @@ function App() {
       <GlobalStyle />
         <Suspense fallback={<Loader/>}>
           <Routes>
-          <Route path="/" element={
+          <Route publicPath="/" element={
             <PublicRoute>
               <HomePage />
             </PublicRoute>} >
