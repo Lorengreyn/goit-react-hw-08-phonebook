@@ -67,7 +67,7 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/login" />} />
             </Route>
           </Routes>
       </Suspense>
