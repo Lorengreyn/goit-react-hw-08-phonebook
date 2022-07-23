@@ -9,12 +9,17 @@ import { refresh } from "../redux/user/userOperations";
 import { Loader } from "../components/Loader/Loader";
 // import Home from "components/Home/Home";
 
-const HomePage = lazy(() => import( "../pages/HomePage/HomePage" /* webpackChunkName: "Home__page" */),
+const HomePage = lazy(() =>
+  import( "../pages/HomePage/HomePage" /* webpackChunkName: "Home__page" */),
 );
-const PublicRoute = lazy(() => import(  "../components/PublicRoute/PublicRoute" /* webpackChunkName: "Public__Route" */
+const PublicRoute = lazy(() =>
+  import(
+    "../components/PublicRoute/PublicRoute" /* webpackChunkName: "Public__Route" */
   ),
 );
-const PrivateRoute = lazy(() => import(  "../components/PrivateRoute/PrivateRoute" /* webpackChunkName: "Private__Route" */
+const PrivateRoute = lazy(() =>
+  import(
+    "../components/PrivateRoute/PrivateRoute" /* webpackChunkName: "Private__Route" */
   ),
 );
 function App() {
@@ -56,7 +61,7 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/login" />} />
             </Route>
           </Routes>
       </Suspense>
