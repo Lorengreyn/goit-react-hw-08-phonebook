@@ -67,7 +67,7 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/index.html" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Route>
           </Routes>
       </Suspense>
