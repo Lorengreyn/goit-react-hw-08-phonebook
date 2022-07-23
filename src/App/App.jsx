@@ -25,7 +25,7 @@ const PrivateRoute = lazy(() =>
 );
 function App() {
   const dispatch = useDispatch();
-  const pendingUserData = useSelector(state => state.user.pendingUserData);
+  // const pendingUserData = useSelector(state => state.user.pendingUserData);
   const currentPath = useSelector(state => state.user.currentPath);
   const navigate = useNavigate();
 
